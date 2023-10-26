@@ -15,6 +15,7 @@
 
 import pandas as pd
 import streamlit as st
+import os
 
 
 # ## Data Wrangling
@@ -26,10 +27,11 @@ import streamlit as st
 
 # Memuat tabel yang diperlukan
 
-orders_df = pd.read_csv("orders_dataset.csv")
-order_items_df = pd.read_csv("order_items_dataset.csv")
-order_payments_df = pd.read_csv("order_payments_dataset.csv")
-products_df = pd.read_csv("products_dataset.csv")
+orders_df = pd.read_csv(os.path.join("/mount/src/dicoding-ecommerce-project/dashboard/", "orders_dataset.csv"))
+order_items_df = pd.read_csv(os.path.join("/mount/src/dicoding-ecommerce-project/dashboard/", "order_items_dataset.csv"))
+order_payments_df = pd.read_csv(os.path.join("/mount/src/dicoding-ecommerce-project/dashboard/", "order_payments_dataset.csv"))
+products_df = pd.read_csv(os.path.join("/mount/src/dicoding-ecommerce-project/dashboard/", "products_dataset.csv"))
+
 
 
 # ### Cleaning Data
