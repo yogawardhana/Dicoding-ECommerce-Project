@@ -12,3 +12,7 @@ pip install numpy pandas scipy matplotlib seaborn jupyter streamlit babel
 streamlit run dashboard.py
 ```
 
+## Streamlit Deployed
+```
+url: https://dicoding-ecommerce-project-zfcpmvb8c83enxlwp3cwri.streamlit.app
+```
