@@ -191,30 +191,50 @@ print("Kategori produk yang paling sedikit terjual adalah:", least_sold['product
 # Judul Dashboard
 st.title("E-Commerce Data Visualization")
 
-# Visualisasi metode pembayaran
-st.header("Metode Pembayaran yang Paling Banyak Digunakan")
-st.markdown("Visualisasai ini menunjukkan metode pembayaran yang digunakan oleh pelanggan.")
-sorted_payment_counts = payment_counts.sort_values(ascending=False)
-st.bar_chart(sorted_payment_counts, use_container_width=True)
+# Add a sidebar title
+st.sidebar.title("Chart Display")
+st.sidebar.markdown("Use checkboxes below to show the charts")
 
-# Visualisasi segmentasi pelanggan
-st.header("Segmentasi Pelanggan")
-st.markdown("Visualisasai ini menunjukkan segmentasi dari pelanggaan E-Commerce.")
-segment_counts = monetary_df['segment'].value_counts().sort_values(ascending=False)
-st.bar_chart(segment_counts, use_container_width=True)
+# Add checkboxes for toggling charts
+show_payment_chart = st.sidebar.checkbox("Metode Pembayaran")
+show_segment_chart = st.sidebar.checkbox("Segmentasi Pelanggan")
+show_category_chart = st.sidebar.checkbox("Kategori Produk")
 
-# Visualisasi kategori produk
-st.header("Kategori Produk")
+# Background container
+background_color = "#f0f0f0"
+container = st.container()
+container.markdown(
+    f'<style>div.stContainer {{background: {background_color} !important;}}</style>',
+    unsafe_allow_html=True,
+)
 
-# Kategori dengan penjualan paling banyak
-st.subheader("Visualisasai ini menunjukkan kategori dengan penjulan tertinggi")
-st.markdown("These are the top 10 product categories with the highest sales.")
-top_10_categories = product_category_sales.nlargest(10, 'qty_sold').set_index('product_category_name')
-st.bar_chart(top_10_categories['qty_sold'], use_container_width=True)
+if show_payment_chart:
+    # Visualisasi metode pembayaran
+    st.header("Metode Pembayaran yang Paling Banyak Digunakan")
+    st.markdown("Visualisasai ini menunjukkan metode pembayaran yang digunakan oleh pelanggan.")
+    sorted_payment_counts = payment_counts.sort_values(ascending=False)
+    st.bar_chart(sorted_payment_counts, use_container_width=True)
 
-# Kategori dengan penjualan paling sediki
-st.subheader("Visualisasai ini menunjukkan kategori dengan penjualan paling sedikit")
-st.markdown("Inilah 10 kategori produk dengan penjualan terendah.")
-bottom_10_categories = product_category_sales.nsmallest(10, 'qty_sold').set_index('product_category_name')
-st.bar_chart(bottom_10_categories['qty_sold'], use_container_width=True)
+if show_segment_chart:
+    # Visualisasi segmentasi pelanggan
+    st.header("Segmentasi Pelanggan")
+    st.markdown("Visualisasai ini menunjukkan segmentasi dari pelanggaan E-Commerce.")
+    segment_counts = monetary_df['segment'].value_counts().sort_values(ascending=False)
+    st.bar_chart(segment_counts, use_container_width=True)
+
+if show_category_chart:
+    # Visualisasi kategori produk
+    st.header("Kategori Produk")
+
+    # Kategori dengan penjualan paling banyak
+    st.subheader("Visualisasai ini menunjukkan kategori dengan penjulan tertinggi")
+    st.markdown("These are the top 10 product categories with the highest sales.")
+    top_10_categories = product_category_sales.nlargest(10, 'qty_sold').set_index('product_category_name')
+    st.bar_chart(top_10_categories['qty_sold'], use_container_width=True)
+
+    # Kategori dengan penjualan paling sediki
+    st.subheader("Visualisasai ini menunjukkan kategori dengan penjualan paling sedikit")
+    st.markdown("Inilah 10 kategori produk dengan penjualan terendah.")
+    bottom_10_categories = product_category_sales.nsmallest(10, 'qty_sold').set_index('product_category_name')
+    st.bar_chart(bottom_10_categories['qty_sold'], use_container_width=True)
 
